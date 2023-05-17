@@ -11,7 +11,7 @@
 <li class="side-nav-item">
     <a href="/student/courses" class="side-nav-link">
         <i class="uil-book"></i>
-        <span>Course Registration </span>
+        <span>Registered Courses </span>
     </a>
 </li>
 

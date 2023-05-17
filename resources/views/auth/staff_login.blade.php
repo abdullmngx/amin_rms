@@ -6,8 +6,9 @@
 
         <!-- Logo -->
         <div class="card-header py-4 text-center bg-primary">
-            <a href="index.html">
-                <span><img src="/assets/images/logo.png" alt="logo" height="22"></span>
+            <a href="#" class="text-white">
+                <span><img src="/logo.png" alt="logo" height="22"></span>
+                SWE DEPARTMENT
             </a>
         </div>
 
@@ -56,8 +57,8 @@
     <!-- end card -->
 
     <div class="row mt-3">
-        <div class="col-12 text-center">
-            <p class="text-muted">Don't have an account? <a href="{{ route('staff.register') }}" class="text-muted ms-1"><b>Sign Up</b></a></p>
+        <div class="col-12 text-center text-danger">
+            <p class="">Don't have an account? <a href="{{ route('staff.register') }}" class="text-muted ms-1"><b>Sign Up</b></a></p>
         </div> <!-- end col -->
     </div>
     <!-- end row -->

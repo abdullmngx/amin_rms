@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', function () {
-    return redirect(route('staff.register'));
+    return view('index');
 });
 
 Route::prefix('staff')->group(function () {

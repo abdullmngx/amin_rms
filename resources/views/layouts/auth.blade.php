@@ -7,7 +7,7 @@
         <title>RMS | @yield('title')</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- App favicon -->
-        <link rel="shortcut icon" href="/assets/images/favicon.ico">
+        <link rel="shortcut icon" href="/logo.png">
 
         <!-- Theme Config Js -->
         <script src="/assets/js/hyper-config.js"></script>
@@ -19,7 +19,7 @@
         <link href="/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
     </head>
 
-    <body class="authentication-bg">
+    <body style="background: url('/buk.jpeg'); background-size: cover; background-repeat: no-repeat">
 
         <div class="account-pages pt-2 pt-sm-5 pb-4 pb-sm-5">
             <div class="container">
@@ -32,7 +32,7 @@
         </div>
         <!-- end page -->
 
-        <footer class="footer footer-alt">
+        <footer class="footer footer-alt text-danger">
             <script>document.write(new Date().getFullYear())</script> © BUK - RMS All rights reserved
         </footer>
 

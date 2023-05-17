@@ -76,7 +76,11 @@ class StaffController extends Controller
 
     public function dashboard()
     {
-        return view('staff_dashboard');
+        $staffs = Staff::count();
+        $students = Student::count();
+        $programmes = Programme::count();
+        $courses = Course::count();
+        return view('staff_dashboard', ['staffs' => $staffs, 'students' => $students, 'programmes'=>$programmes,'courses'=>$courses]);
     }
 
     public function courses()
