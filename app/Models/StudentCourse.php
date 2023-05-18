@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class StudentCourse extends Model
 {
@@ -24,9 +25,9 @@ class StudentCourse extends Model
       'grade_status'
     ];
 
-    public function student(): Attribute
+    public function student(): BelongsTo
     {
-        return Attribute::make(get: fn($val, $attr) => Student::find($attr['student_id'])->first());
+        return $this->belongsTo(Student::class);
     }
 
     public function grade(): Attribute

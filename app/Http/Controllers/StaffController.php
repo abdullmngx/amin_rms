@@ -141,7 +141,7 @@ class StaffController extends Controller
 
     public function upload($course_id)
     {
-        $student_courses = StudentCourse::where('course_id', $course_id)->where('session_id', $this->session)->get();
+        $student_courses = StudentCourse::where('course_id', $course_id)->where('session_id', $this->session)->with('student')->get();
         return view('course_upload', ['student_courses' => $student_courses]);
     }
 
