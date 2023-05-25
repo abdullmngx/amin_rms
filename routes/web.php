@@ -37,6 +37,7 @@ Route::prefix('staff')->group(function () {
         Route::post('/courses', [CourseController::class, 'store'])->name('staff.store_course');
         Route::get('/courses/delete/{course_id}', [CourseController::class, 'delete'])->name('staff.delete_course');
         Route::get('/programme-courses', [StaffController::class, 'programmeCourses'])->name('staff.programme_courses');
+        Route::post('/promote', [StaffController::class, 'promote'])->name('staff.promote');
         Route::get('/programmes/courses/{programme_id}', [ProgrammeController::class, 'programmecourses'])->name('programme.courses');
         Route::post('/programmes/courses/remove', [ProgrammeCourseController::class, 'remove'])->name('programme_course.remove');
         Route::post('/programmes/courses/{programme_id}', [ProgrammeCourseController::class, 'store'])->name('programme_course.store');

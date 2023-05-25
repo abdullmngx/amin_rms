@@ -28,6 +28,11 @@ class ProgrammeCourse extends Model
         return Attribute::make(get: fn($val, $attr) => Course::find($attr['course_id'])?->code);
     }
 
+    public function creditUnit(): Attribute
+    {
+        return Attribute::make(get: fn($val, $attr) => Course::find($attr['course_id'])?->credit_unit);
+    }
+
     public function semester(): Attribute
     {
         return Attribute::make(get: fn($val, $attr) => Semester::find($attr['semester_id'])?->name);

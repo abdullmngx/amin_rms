@@ -22,7 +22,7 @@ class StudentController extends Controller
     public function __construct()
     {   
         $this->session = Configuration::where('name', 'current_session')->first()->value;
-        $this->semester = Configuration::where('name', 'current_semester')->first()->value;;
+        $this->semester = Configuration::where('name', 'current_semester')->first()->value;
     }
 
     public function register()
@@ -96,7 +96,7 @@ class StudentController extends Controller
     public function courses()
     {
         $student_courses = StudentCourse::where('student_id', auth()->id())->where('session_id', $this->session)->pluck('course_id')->toArray();
-        $courses = ProgrammeCourse::where('programme_id', auth()->user()->programme_id)->get();
+        $courses = ProgrammeCourse::where('programme_id', auth()->user()->programme_id)->where('level_id', auth()->user()->level_id)->get();
         $courses->filter(function($course) use ($student_courses) {
             if (in_array($course->course_id, $student_courses))
             {
@@ -126,9 +126,9 @@ class StudentController extends Controller
             $q->where('level_id', $level_id)
             ->where('semester_id', $semester_id);
         }])->first();
-        if ($semester->order > 1)
+        if ($semester?->order > 1)
         {
-            $previous_semester = Semester::where('order', ($semester->order-1))->first();
+            $previous_semester = Semester::where('order', ($semester?->order-1))->first();
             $student_courses = StudentCourse::where('student_id', auth()->id())->where('level_id', $level_id)->where('semester_id', $previous_semester?->id)->orWhere(function($qr) use ($levels){
                 $qr->whereIn('level_id', $levels);
             })->get();

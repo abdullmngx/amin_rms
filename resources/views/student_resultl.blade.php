@@ -5,33 +5,57 @@
         <div class="col-xl-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title mb-4">Levels</h4>
-                    <div class="mb-4">
-                        <div class="table-responsive">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>S/N</th>
-                                        <th>Level</th>
-                                        <th>Semester</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($levels as $level)
-                                        <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $level->level }}</td>
-                                            <td>@foreach ($semesters as $semester)
-                                                <a href="/student/result/{{ $level->level_id }}/{{ $semester->id }}" class="btn btn-info">{{ $semester->name }}</a>
-                                            @endforeach</td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                    <h4 class="card-title mb-4">My Result</h4>
+                    <div class="row mb-4 justify-content-center">
+                        <div class="col-md-5">
+                            <form id="result-form" method="post">
+                                <div class="mb-3">
+                                    <label for="level">Level</label>
+                                    <select name="level" id="level" class="form-control">
+                                        <option value="">Select level</option>
+                                        @foreach ($levels as $level)
+                                            <option value="{{ $level->level_id }}">{{ $level->level }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="semester">Semester</label>
+                                    <select name="semester" id="semester" class="form-control">
+                                        <option value="">Select Semester</option>
+                                        @foreach ($semesters as $semester)
+                                            <option value="{{ $semester->id }}">{{ $semester->name }}</option>
+                                        @endforeach
+                                        {{--  <option value="0">End of Session Report</option> --}}
+                                    </select>
+                                </div>
+                                <div class="err"></div>
+                                <div class="mb-4">
+                                    <button type="submit" class="btn btn-primary w-100">Proceed</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+@endsection
+
+@section('script')
+    <script>
+        $('#result-form').submit(function (e) {
+            e.preventDefault()
+            let level = $('#level').val()
+            let sem = $('#semester').val()
+
+            if (level != '' && sem != '')
+            {
+                location.href='/student/result/'+level+ '/' + sem
+            }
+            else 
+            {
+                $('.err').html('<div class="alert alert-danger">Level and semester are required</div>')
+            }
+        })
+    </script>
 @endsection

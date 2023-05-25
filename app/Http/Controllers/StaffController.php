@@ -189,4 +189,23 @@ class StaffController extends Controller
 
         return back()->with('success', 'Scores saved!');
     }
+
+    public function promote()
+    {
+        $students = Student::all();
+        foreach ($students as $student)
+        {
+            $current_level = Level::find($student->level_id);
+            $next_level = Level::where('order', $current_level->order + 1)->first();
+            $level_id = $current_level->id;
+            if (!is_null($next_level))
+            {
+                $level_id = $next_level->id;
+            }
+
+            Student::where('id', $student->id)->update(['level_id' => $level_id]);
+        }
+
+        return back()->with('msg', 'Students promoted');
+    }
 }

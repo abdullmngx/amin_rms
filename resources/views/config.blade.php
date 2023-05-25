@@ -62,4 +62,30 @@
             </div>
         </div>
     </div>
+    <div class="row mb-4">
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="mb-4">
+                        <h4 class="card-title">Promote Students</h4>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-md-4">
+                            <form action="{{ route('staff.promote') }}" method="post">
+                                @csrf
+                                <div class="mb-3">
+                                    @if (session()->has('msg'))
+                                        <div class="alert alert-success">{{ session('msg') }}</div>
+                                    @endif
+                                </div>
+                                <div class="mb-3">
+                                    <button type="submit" class="btn btn-success w-100">Promote</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

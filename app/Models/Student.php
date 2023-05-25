@@ -62,4 +62,32 @@ class Student extends Authenticatable
     {
         return $this->hasMany(StudentCourse::class);
     }
+
+    public function firstSemesterUnits(): Attribute
+    {
+        $session = Configuration::where('name', 'current_session')->first()->value;
+        return Attribute::make(get: function ($val, $att) use ($session) {
+            $student_courses = StudentCourse::where('student_id', $att['id'])->where('session_id', $session)->where('semester_id', 1)->get();
+            $total = 0;
+            foreach ($student_courses as $course)
+            {
+                $total += $course->course_unit;
+            }
+            return $total;
+        });
+    }
+
+    public function secondSemesterUnits(): Attribute
+    {
+        $session = Configuration::where('name', 'current_session')->first()->value;
+        return Attribute::make(get: function ($val, $att) use ($session) {
+            $student_courses = StudentCourse::where('student_id', $att['id'])->where('session_id', $session)->where('semester_id', 2)->get();
+            $total = 0;
+            foreach ($student_courses as $course)
+            {
+                $total += $course->course_unit;
+            }
+            return $total;
+        });
+    }
 }
