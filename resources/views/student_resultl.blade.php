@@ -25,7 +25,7 @@
                                         @foreach ($semesters as $semester)
                                             <option value="{{ $semester->id }}">{{ $semester->name }}</option>
                                         @endforeach
-                                        {{--  <option value="0">End of Session Report</option> --}}
+                                        <option value="0">End of Session Report</option>
                                     </select>
                                 </div>
                                 <div class="err"></div>
@@ -48,9 +48,13 @@
             let level = $('#level').val()
             let sem = $('#semester').val()
 
-            if (level != '' && sem != '')
+            if (level != '' && sem != '' && sem != "0")
             {
                 location.href='/student/result/'+level+ '/' + sem
+            }
+            else if (level != '' && sem == "0")
+            {
+                location.href='/student/result/' + level + '/' + sem
             }
             else 
             {

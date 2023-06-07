@@ -122,19 +122,31 @@ class StudentController extends Controller
         $level = Level::where('id', $level_id)->first();
         $levels = Level::where('order', '<', $level->order)->pluck('id')->toArray();
         $semester = Semester::find($semester_id);
-        $student_grades = Student::where('id', auth()->id())->with(['student_courses' => function ($q) use ($level_id, $semester_id) {
-            $q->where('level_id', $level_id)
-            ->where('semester_id', $semester_id);
-        }])->first();
-        if ($semester?->order > 1)
+        if ($semester_id != 0)
         {
-            $previous_semester = Semester::where('order', ($semester?->order-1))->first();
-            $student_courses = StudentCourse::where('student_id', auth()->id())->where('level_id', $level_id)->where('semester_id', $previous_semester?->id)->orWhere(function($qr) use ($levels){
-                $qr->whereIn('level_id', $levels);
-            })->get();
+            $student_grades = Student::where('id', auth()->id())->with(['student_courses' => function ($q) use ($level_id, $semester_id) {
+                $q->where('level_id', $level_id)
+                ->where('semester_id', $semester_id);
+            }])->first();
+            if ($semester?->order > 1)
+            {
+                $previous_semester = Semester::where('order', ($semester?->order-1))->first();
+                $student_courses = StudentCourse::where('student_id', auth()->id())->where('level_id', $level_id)->where('semester_id', $previous_semester?->id)->orWhere(function($qr) use ($levels){
+                    $qr->whereIn('level_id', $levels);
+                })->get();
+            }
+            else 
+            {
+                array_push($levels, $level_id);
+                $student_courses = StudentCourse::where('student_id', auth()->id())->whereIn('level_id', $levels)->get();
+            }
         }
-        else 
+        else
         {
+            $student_grades = Student::where('id', auth()->id())->with(['student_courses' => function ($q) use ($level_id) {
+                $q->where('level_id', $level_id);
+            }])->first();
+
             array_push($levels, $level_id);
             $student_courses = StudentCourse::where('student_id', auth()->id())->whereIn('level_id', $levels)->get();
         }
